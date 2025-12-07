@@ -1,4 +1,7 @@
 terraform {
+  backend  "local" {
+    path = "/tmp/terraform.tfstate"
+  }
   required_version = ">= 1.6.0"
 
   required_providers {
@@ -15,10 +18,10 @@ provider "aws" {
 
 
 resource "aws_instance" "nginx-node-by-terraform" {
-  ami                    = "ami-00dbc43f8400b68cd"
+  ami                    = "ami-02b6701d21b6c2fec"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
-  vpc_security_group_ids = ["sg-0ed19fc2ace3c4acf"]
+  vpc_security_group_ids = ["sg-0c3eeaffb052fc77e"]
   key_name               = "mickey"
 
   tags = {
@@ -27,10 +30,10 @@ resource "aws_instance" "nginx-node-by-terraform" {
 }
 
 resource "aws_instance" "java-node-by-terraform" {
-  ami                    = "ami-0fd41a7b07a519463"
+  ami                    = "ami-0b05581ab39fe9730"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
-  vpc_security_group_ids = ["sg-0ed19fc2ace3c4acf"]
+  vpc_security_group_ids = ["sg-0c3eeaffb052fc77e"]
   key_name               = "mickey"
 
   tags = {
@@ -39,10 +42,10 @@ resource "aws_instance" "java-node-by-terraform" {
 }
 
 resource "aws_instance" "python-node-by-terraform" {
-  ami                    = "ami-0fd41a7b07a519463"
+  ami                    = "ami-0b05581ab39fe9730"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
-  vpc_security_group_ids = ["sg-0544e913fb38c0879"]
+  vpc_security_group_ids = ["sg-0c3eeaffb052fc77e"]
   key_name               = "mickey"
 
   tags = {
