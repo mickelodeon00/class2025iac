@@ -19,7 +19,7 @@ source "amazon-ebs" "nginx-git" {
   instance_type           = "t3.micro"
   ssh_username            = "ec2-user"
   source_ami              = "ami-08b6a2983df6e9e25"
-  ami_name                = "nginx-git-by-packer-v2"
+  ami_name                = "nginx-git-by-packer_jenkins"
   ami_virtualization_type = "hvm"
 }
 
@@ -33,7 +33,7 @@ source "amazon-ebs" "java-python-git" {
   instance_type           = "t3.micro"
   ssh_username            = "ec2-user"
   source_ami              = "ami-08b6a2983df6e9e25"
-  ami_name                = "java-python-git-by-packer-v2"
+  ami_name                = "java-python-git-by-packer_jenkins"
   ami_virtualization_type = "hvm"
 }
 
