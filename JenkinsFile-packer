@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    
+    environment {
+        AWS_ACCESS_KEY_ID = credentials ('aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials ('aws-secret-access-key')
+        AWS_DEFAULT_REGION = 'eu-west-1'
+    }
+
+    stages {
+        stage('Clone repo') {
+            steps {
+                git branch: "week6", url: "https://github.com/mickelodeon00/class2025iac.git"
+            }
+        }
+        
+        stage('Packer Initialization') {
+            steps {
+                dir('packer') {
+                    sh 'packer init .'
+                }
+            }
+        }
+        
+        stage('Packer Validate') {
+            steps {
+                dir('packer') {
+                    sh 'packer validate .'
+                }
+            }
+        }
+        
+        stage('Packer build') {
+            steps {
+                dir('packer') {
+                    sh 'packer build .'
+                }
+            }
+        }
+    }
+}
