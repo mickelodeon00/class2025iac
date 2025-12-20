@@ -11,7 +11,7 @@ packer {
 
 
 #-----------------------------
-# source: how we build the AMI For Nginx and GIT 
+# source: AMI For Nginx and GIT 
 #-----------------------------
 
 source "amazon-ebs" "nginx-git" {
@@ -25,7 +25,7 @@ source "amazon-ebs" "nginx-git" {
 
 
 #-----------------------------
-# source: how we build the AMI For Nginx and GIT 
+# source: AMI For Java , Python and GIT 
 #-----------------------------
 
 source "amazon-ebs" "java-python-git" {

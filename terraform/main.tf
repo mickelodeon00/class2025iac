@@ -1,7 +1,11 @@
 terraform {
-  backend "local" {
-    path = "/tmp/terraform.tfstate"
+  backend "s3" {
+    bucket  = "techbleat-terraform-cicd-state-bucket"
+    key     = "envs/dev/terraform.tfstate"
+    region  = "eu-west-1"
+    encrypt = true
   }
+
   required_version = ">= 1.6.0"
 
   required_providers {
@@ -16,12 +20,59 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+# -------------------------
+# Web Node Security Group
+# -------------------------
+
+resource "aws_security_group" "web_sg" {
+
+  name        = "web-sg"
+  description = "Allow SSH and Port 80  inbound, all outbound"
+  vpc_id      = "vpc-0a1624f291bfb283f"
+
+
+  # inbound SSH
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # inbound 80 (web)
+  ingress {
+    description = "Web port 80"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "web-security_group"
+  }
+
+}
+
+#-------------------------
+# Web EC2 Instance
+# ------------------------
 
 resource "aws_instance" "nginx-node-by-terraform" {
   ami                    = "ami-02b6701d21b6c2fec"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
-  vpc_security_group_ids = ["sg-0c3eeaffb052fc77e"]
+  vpc_security_group_ids = [aws_security_group.web_sg.id]
   key_name               = "mickey"
 
   tags = {
@@ -29,11 +80,123 @@ resource "aws_instance" "nginx-node-by-terraform" {
   }
 }
 
+
+# -------------------------
+# Python Node Security Group
+# -------------------------
+
+resource "aws_security_group" "python_sg" {
+
+  name        = "python-sg"
+  description = "Allow SSH and Port 9090  inbound, all outbound"
+  vpc_id      = "vpc-0a1624f291bfb283f"
+
+
+  # inbound SSH
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # inbound 9090 (app)
+  ingress {
+    description = "Python App port 9090"
+    from_port   = 9090
+    to_port     = 9090
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "python-app-security_group"
+  }
+
+}
+
+
+#-------------------------
+# Python App EC2 Instance
+# ------------------------
+
+resource "aws_instance" "python-node-by-terraform" {
+  ami                    = "ami-0b05581ab39fe9730"
+  instance_type          = "t3.micro"
+  subnet_id              = "subnet-05355ecc913c17c32"
+  vpc_security_group_ids = [aws_security_group.python_sg.id]
+  key_name               = "mickey"
+
+  tags = {
+    Name = "terraform-python-node"
+  }
+}
+
+
+# -------------------------
+# Java Node Security Group
+# -------------------------
+
+resource "aws_security_group" "java_sg" {
+
+  name        = "java-sg"
+  description = "Allow SSH and Port 8080  inbound, all outbound"
+  vpc_id      = "vpc-0a1624f291bfb283f"
+
+
+  # inbound SSH
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # inbound 8080 (app)
+  ingress {
+    description = "Python App port 8080"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "java-app-security_group"
+  }
+
+}
+
+
+#-------------------------
+# Java App EC2 Instance
+# ------------------------
+
 resource "aws_instance" "java-node-by-terraform" {
   ami                    = "ami-0b05581ab39fe9730"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
-  vpc_security_group_ids = ["sg-0c3eeaffb052fc77e"]
+  vpc_security_group_ids = [aws_security_group.java_sg.id]
   key_name               = "mickey"
 
   tags = {
@@ -41,14 +204,3 @@ resource "aws_instance" "java-node-by-terraform" {
   }
 }
 
-resource "aws_instance" "python-node-by-terraform" {
-  ami                    = "ami-0b05581ab39fe9730"
-  instance_type          = "t3.micro"
-  subnet_id              = "subnet-05355ecc913c17c32"
-  vpc_security_group_ids = ["sg-0c3eeaffb052fc77e"]
-  key_name               = "mickey"
-
-  tags = {
-    Name = "terraform-python-node"
-  }
-}
