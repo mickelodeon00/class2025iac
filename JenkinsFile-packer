@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clone repo') {
             steps {
-                git branch: "week6", url: "https://github.com/mickelodeon00/class2025iac.git"
+                git branch: "week7", url: "https://github.com/mickelodeon00/class2025iac.git"
             }
         }
         
