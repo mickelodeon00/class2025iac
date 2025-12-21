@@ -88,7 +88,7 @@ resource "aws_instance" "web-node" {
 resource "aws_security_group" "python_sg" {
 
   name        = "python-sg"
-  description = "Allow SSH and Port 9090  inbound, all outbound"
+  description = "Allow SSH and Port 8080  inbound, all outbound"
   vpc_id      = "vpc-0a1624f291bfb283f"
 
 
@@ -102,11 +102,11 @@ resource "aws_security_group" "python_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # inbound 9090 (app)
+  # inbound 8080 (app)
   ingress {
-    description = "Python App port 9090"
-    from_port   = 9090
-    to_port     = 9090
+    description = "Python App port 8080"
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -150,7 +150,7 @@ resource "aws_instance" "python-node" {
 resource "aws_security_group" "java_sg" {
 
   name        = "java-sg"
-  description = "Allow SSH and Port 8080  inbound, all outbound"
+  description = "Allow SSH and Port 9090  inbound, all outbound"
   vpc_id      = "vpc-0a1624f291bfb283f"
 
 
@@ -164,11 +164,11 @@ resource "aws_security_group" "java_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # inbound 8080 (app)
+  # inbound 9090 (app)
   ingress {
-    description = "Python App port 8080"
-    from_port   = 8080
-    to_port     = 8080
+    description = "Java App port 9090"
+    from_port   = 9090
+    to_port     = 9090
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
