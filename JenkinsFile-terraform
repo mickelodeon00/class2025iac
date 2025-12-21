@@ -1,5 +1,13 @@
 pipeline {
     agent any
+
+    parameters {
+        choice (
+            name: 'TF_ACTION',
+            choices :['plan','apply', 'destroy'],
+            description: 'Select which Terraform action to run'
+        )
+    }
     
     environment {
         AWS_ACCESS_KEY_ID = credentials ('aws-access-key-id')
@@ -8,9 +16,9 @@ pipeline {
     }
 
     stages {
-        stage('Clone repo') {
+        stage('Checkout') {
             steps {
-                git branch: "week6", url: "https://github.com/mickelodeon00/class2025iac.git"
+                checkout scm
             }
         }
         
@@ -31,6 +39,9 @@ pipeline {
         }
         
         stage('Terraform plan') {
+            when  {
+                expression { params.TF_ACTION == 'plan'}
+            }
             steps {
                 dir('terraform') {
                     sh 'terraform plan'
@@ -39,11 +50,25 @@ pipeline {
         }
         
         stage('Terraform apply') {
+            when  {
+                expression { params.TF_ACTION == 'apply'}
+            }
             steps {
                 dir('terraform') {
                     sh 'terraform apply --auto-approve'
                 }
             }
         }
+
+        stage ('terraform destroy') {
+         when  {
+                expression { params.TF_ACTION == 'destroy'}
+            }
+            steps {
+                dir ('terraform') {
+                    sh ' terraform destroy -auto-approve'
+                }
+            }
+        } 
     }
 }

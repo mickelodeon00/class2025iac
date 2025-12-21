@@ -68,7 +68,7 @@ resource "aws_security_group" "web_sg" {
 # Web EC2 Instance
 # ------------------------
 
-resource "aws_instance" "nginx-node-by-terraform" {
+resource "aws_instance" "web-node" {
   ami                    = "ami-02b6701d21b6c2fec"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
@@ -76,7 +76,7 @@ resource "aws_instance" "nginx-node-by-terraform" {
   key_name               = "mickey"
 
   tags = {
-    Name = "terraform-nginx-node"
+    Name = "web-node"
   }
 }
 
@@ -130,7 +130,7 @@ resource "aws_security_group" "python_sg" {
 # Python App EC2 Instance
 # ------------------------
 
-resource "aws_instance" "python-node-by-terraform" {
+resource "aws_instance" "python-node" {
   ami                    = "ami-0b05581ab39fe9730"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
@@ -138,7 +138,7 @@ resource "aws_instance" "python-node-by-terraform" {
   key_name               = "mickey"
 
   tags = {
-    Name = "terraform-python-node"
+    Name = "python-node"
   }
 }
 
@@ -192,7 +192,7 @@ resource "aws_security_group" "java_sg" {
 # Java App EC2 Instance
 # ------------------------
 
-resource "aws_instance" "java-node-by-terraform" {
+resource "aws_instance" "java-node" {
   ami                    = "ami-0b05581ab39fe9730"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
@@ -200,7 +200,7 @@ resource "aws_instance" "java-node-by-terraform" {
   key_name               = "mickey"
 
   tags = {
-    Name = "terraform-java-node"
+    Name = "java-node"
   }
 }
 

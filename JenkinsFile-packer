@@ -8,9 +8,9 @@ pipeline {
     }
 
     stages {
-        stage('Clone repo') {
+        stage('Checkout') {
             steps {
-                git branch: "week7", url: "https://github.com/mickelodeon00/class2025iac.git"
+                checkout scm
             }
         }
         
