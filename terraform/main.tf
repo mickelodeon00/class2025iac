@@ -28,7 +28,7 @@ resource "aws_security_group" "web_sg" {
 
   name        = "web-sg"
   description = "Allow SSH and Port 80  inbound, all outbound"
-  vpc_id      = "vpc-0a1624f291bfb283f"
+  vpc_id      = "vpc-0d78f18513624c2a9"
 
 
   # inbound SSH
@@ -89,7 +89,7 @@ resource "aws_security_group" "python_sg" {
 
   name        = "python-sg"
   description = "Allow SSH and Port 8080  inbound, all outbound"
-  vpc_id      = "vpc-0a1624f291bfb283f"
+  vpc_id      = "vpc-0d78f18513624c2a9"
 
 
   # inbound SSH
@@ -151,7 +151,7 @@ resource "aws_security_group" "java_sg" {
 
   name        = "java-sg"
   description = "Allow SSH and Port 9090  inbound, all outbound"
-  vpc_id      = "vpc-0a1624f291bfb283f"
+  vpc_id      = "vpc-0d78f18513624c2a9"
 
 
   # inbound SSH
