@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    
+    environment {
+        SSH = "ssh -o StrictHostKeyChecking=no ec2-user@172.31.26.249"
+    }
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                sshagent(credentials: ['AWS-SSH-KEY']) {
+                    sh '$SSH "rm -rf fruits-veg_market.git"'
+                    sh '$SSH "git clone https://github.com/mickelodeon00/fruits-veg_market.git"'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sshagent(credentials: ['AWS-SSH-KEY']) {
+                    sh '$SSH "cd fruits-veg_market && sudo cp web/index.html /usr/share/nginx/html/index.html"'
+                    sh '$SSH "sudo systemctl restart nginx"'
+                }
+            }
+        }
+    }
+}
