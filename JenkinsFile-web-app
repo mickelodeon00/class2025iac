@@ -9,7 +9,7 @@ pipeline {
         stage('Clone Repo') {
             steps {
                 sshagent(credentials: ['AWS-SSH-KEY']) {
-                    sh '$SSH "rm -rf fruits-veg_market.git"'
+                    sh '$SSH "rm -rf fruits-veg_market"'
                     sh '$SSH "git clone https://github.com/mickelodeon00/fruits-veg_market.git"'
                 }
             }
