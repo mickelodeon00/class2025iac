@@ -69,7 +69,7 @@ resource "aws_security_group" "web_sg" {
 # ------------------------
 
 resource "aws_instance" "web-node" {
-  ami                    = "ami-02b6701d21b6c2fec"
+  ami                    = "ami-0116d7349f019d56f"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
   vpc_security_group_ids = [aws_security_group.web_sg.id]
@@ -131,7 +131,7 @@ resource "aws_security_group" "python_sg" {
 # ------------------------
 
 resource "aws_instance" "python-node" {
-  ami                    = "ami-0b05581ab39fe9730"
+  ami                    = "ami-07c7c1f4c6cf133c2"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
   vpc_security_group_ids = [aws_security_group.python_sg.id]
@@ -193,7 +193,7 @@ resource "aws_security_group" "java_sg" {
 # ------------------------
 
 resource "aws_instance" "java-node" {
-  ami                    = "ami-0b05581ab39fe9730"
+  ami                    = "ami-07c7c1f4c6cf133c2"
   instance_type          = "t3.micro"
   subnet_id              = "subnet-05355ecc913c17c32"
   vpc_security_group_ids = [aws_security_group.java_sg.id]
