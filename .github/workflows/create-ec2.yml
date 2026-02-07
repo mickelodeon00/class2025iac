@@ -51,6 +51,6 @@ jobs:
         working-directory: terraform
         run: terraform plan -out=tfplan
 
-      # - name: Terraform apply 
-      #   working-directory: terraform
-      #   run: terraform apply tfplan
+      - name: Terraform apply 
+        working-directory: terraform
+        run: terraform apply tfplan
