@@ -9,7 +9,7 @@ on:
       - week11
     paths:
       - 'terraform/**'
-      # - '.github/workflows/create-ec2.yml'
+      - '.github/workflows/create-ec2.yml'
 
 
 jobs:
