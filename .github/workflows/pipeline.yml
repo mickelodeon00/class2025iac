@@ -2,8 +2,8 @@ name: Ansible Deploy (Web=Nginx)
 
 on:
   workflow_dispatch: {}
-  push:
-   branches: ["week11"]
+  # push:
+  #  branches: ["week11"]
 
 jobs:
   run-ansible:
@@ -21,10 +21,10 @@ jobs:
           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
 
-      - name: Check playbook (Dry Run)
+      - name: Run playbook
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
           
         run: |
           ls -ltr
-          ansible-playbook -C -vv -i inventory/hosts.ini playbook/install.yml  
+          ansible-playbook -i inventory/hosts.ini playbook/install.yml  

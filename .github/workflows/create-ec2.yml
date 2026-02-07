@@ -4,12 +4,12 @@ name: Terraform EC2
 
 on:
   workflow_dispatch:
-  # push: 
-  #   branches:
-  #     - week11
-  #   paths:
-  #     - 'terraform/**'
-  #     - '.github/workflows/create-ec2.yml'
+  push: 
+    branches:
+      - week11
+    paths:
+      - 'terraform/**'
+      - '.github/workflows/create-ec2.yml'
 
 
 jobs:
@@ -47,10 +47,14 @@ jobs:
         working-directory: terraform
         run: terraform validate
 
-      - name: Terraform plan 
-        working-directory: terraform
-        run: terraform plan -out=tfplan
+      # - name: Terraform plan 
+      #   working-directory: terraform
+      #   run: terraform plan -out=tfplan
 
-      - name: Terraform apply 
+      # - name: Terraform apply 
+      #   working-directory: terraform
+      #   run: terraform apply tfplan
+
+      - name: Terraform destroy 
         working-directory: terraform
-        run: terraform apply tfplan
+        run: terraform destroy -auto-approve
