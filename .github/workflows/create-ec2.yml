@@ -4,12 +4,12 @@ name: Terraform EC2
 
 on:
   workflow_dispatch:
-  push: 
-    branches:
-      - week11
-    paths:
-      - 'terraform/**'
-      - '.github/workflows/create-ec2.yml'
+  # push: 
+  #   branches:
+  #     - week11
+  #   paths:
+  #     - 'terraform/**'
+  #     - '.github/workflows/create-ec2.yml'
 
 
 jobs:

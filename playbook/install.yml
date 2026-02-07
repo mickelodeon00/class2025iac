@@ -16,24 +16,55 @@
         state: "{{ nginx_state }}"
         enabled: yes
 
-    - name: create assets directory
+    - name: create assets directory (Amazon Linux)
       ansible.builtin.file:
         path: /usr/share/nginx/html/assets
         state: directory
+      when: ansible_os_family == "RedHat"
 
-    - name: copy index file 
+    - name: copy index file (Amazon Linux)
       ansible.builtin.template:
         src: index.html.j2
         dest: /usr/share/nginx/html/index.html
+      when: ansible_os_family == "RedHat"
 
-    - name: copy js file 
+    - name: copy js file (Amazon Linux)
       ansible.builtin.copy:
         src: ../nginx-artefacts/assets/app.js 
         dest: /usr/share/nginx/html/assets/app.js
+      when: ansible_os_family == "RedHat"
 
-    - name: copy css file
+    - name: copy css file (Amazon Linux)
       ansible.builtin.copy:
         src: ../nginx-artefacts/assets/styles.css 
         dest: /usr/share/nginx/html/assets/styles.css
+      when: ansible_os_family == "RedHat"
+
+
+
+    - name: create assets directory (Ubuntu)
+      ansible.builtin.file:
+        path: /var/www/html/assets
+        state: directory
+      when: ansible_os_family == "Debian"
+
+    - name: copy index file (Ubuntu)
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+      when: ansible_os_family == "Debian"
+
+    - name: copy js file (Ubuntu)
+      ansible.builtin.copy:
+        src: ../nginx-artefacts/assets/app.js 
+        dest: /var/www/html/assets/app.js
+      when: ansible_os_family == "Debian"
+
+    - name: copy css file (Ubuntu)
+      ansible.builtin.copy:
+        src: ../nginx-artefacts/assets/styles.css 
+        dest: /var/www/html/assets/styles.css
+      when: ansible_os_family == "Debian"
+
 
 
