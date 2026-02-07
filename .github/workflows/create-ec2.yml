@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push: 
     branches:
-      - week10
+      - week11
     paths:
       - 'terraform/**'
       # - '.github/workflows/create-ec2.yml'
